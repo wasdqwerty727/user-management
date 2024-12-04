@@ -26,8 +26,22 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+//    public User saveUser (User user) {
+//        return userRepository.save(user);
+//    }
     public User saveUser (User user) {
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            throw new RuntimeException("Username already exists");
+        }
         return userRepository.save(user);
+    }
+    public boolean authenticateUser (String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user != null) {
+            // Here you should ideally hash the password and compare it with the stored hash
+            return user.getPassword().equals(password); // Simple comparison for demonstration
+        }
+        return false;
     }
 
     public void deleteUser (Long id) {
