@@ -38,8 +38,7 @@ public class UserService {
     public boolean authenticateUser (String username, String password) {
         User user = userRepository.findByUsername(username);
         if (user != null) {
-            // Here you should ideally hash the password and compare it with the stored hash
-            return user.getPassword().equals(password); // Simple comparison for demonstration
+            return user.getPassword().equals(password);
         }
         return false;
     }
